@@ -33,14 +33,7 @@ pip install --pre torch torchvision torchaudio --index-url https://download.pyto
 pip install -r requirements.txt
 
 #使用cloudflared运行：
-cd /workspace/ComfyUI
-# 下载 Cloudflare 的 cloudflared
-wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-# 安装 cloudflared
-dpkg -i cloudflared-linux-amd64.deb
-# 运行 Python 脚本
-python main.py --dont-print-server
-
+#打开ComfyUI/notebooks/comfyui_colab.ipynb，然后在其中的cloudflared运行框第一行之前加上“ %cd /workspace/ComfyUI/”，之后直接运行该框代码即可
 
 
 
