@@ -1,0 +1,46 @@
+#创建环境
+conda create -n comfyui
+#激活
+conda activate comfyui
+
+#安装依赖
+apt-get update
+apt install libgl1
+apt install ffmpeg
+
+#下载源码
+git clone https://github.com/Chaunceyhon/ComfyUI.git
+
+#下载基础模型
+wget -O /workspace/ComfyUI/models/checkpoints/sd_xl_base_1.0.safetensors "https://www.wisemodel.cn/file-proxy/LiuDQ/stable-diffusion-xl-base-1.0-stabilityai/-/raw/main/sd_xl_base_1.0.safetensors?inline=false"
+wget -O /workspace/ComfyUI/models/checkpoints/sd_xl_refiner_1.0.safetensors "https://hf-mirror.com/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors"
+wget -O /workspace/ComfyUI/models/vae/sdxl_vae_fp16_fix.safetensors "https://www.wisemodel.cn/file-proxy/fireicewolf/stable_diffusion_xl_base_1.0/-/raw/main/sdxl_vae_fp16_fix.safetensors?inline=false"
+
+cd /workspace/ComfyUI/models/loras
+wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/Chaunceyhon-000012.safetensors
+wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/anran-000013.safetensors
+wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/jiaxin-000014.safetensors
+wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/qian-000013.safetensors
+wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/xiang-000014.safetensors
+
+#Nvidia 用户应使用以下命令安装稳定的 pytorch：
+cd /workspace/ComfyUI/
+pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu124
+#这是安装 pytorch nightly 的命令，可能会提高性能： 
+pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu126
+
+#安装依赖项
+pip install -r requirements.txt
+
+#使用cloudflared运行：
+cd /workspace/ComfyUI
+# 下载 Cloudflare 的 cloudflared
+wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+# 安装 cloudflared
+dpkg -i cloudflared-linux-amd64.deb
+# 运行 Python 脚本
+python main.py --dont-print-server
+
+
+
+
