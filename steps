@@ -23,6 +23,11 @@ wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/jiaxin-000014.safe
 wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/qian-000013.safetensors
 wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/xiang-000014.safetensors
 
+#使用腾讯云模型下载脚本（可C站）
+cd /workspace/ComfyUI/
+chmod +x deploy_comfyui.sh
+./deploy_comfyui.sh
+
 #Nvidia 用户应使用以下命令安装稳定的 pytorch：
 cd /workspace/ComfyUI/
 pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu124
