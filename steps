@@ -23,6 +23,9 @@ wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/jiaxin-000014.safe
 wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/qian-000013.safetensors
 wget https://hf-mirror.com/CharlosHyens/modelora/resolve/main/xiang-000014.safetensors
 
+#下载controlnet模型
+wget -O /workspace/ComfyUI/models/controlnet/control_v11p_sd15s2_lineart_anime.pth "https://hf-mirror.com/lllyasviel/ControlNet-v1-1/resolve/main/control_v11p_sd15s2_lineart_anime.pth"
+
 #使用腾讯云模型下载脚本（可C站）
 cd /workspace/ComfyUI/
 chmod +x deploy_comfyui.sh
@@ -39,9 +42,21 @@ pip install -r requirements.txt
 
 #使用cloudflared运行：
 #打开ComfyUI/notebooks/comfyui_colab.ipynb，然后在其中的cloudflared运行框第一行之前加上“ %cd /workspace/ComfyUI/”，之后直接运行该框代码即可
+#或者使用ngrok进行内网穿透：
+apt-get install curl
+
 
 #安装ComfyUI-Manager插件：https://github.com/ltdrdata/ComfyUI-Manager
 cd /workspace/ComfyUI/custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+
+#找到/root/miniconda3/lib/python3.10/site-packages/huggingface_hub/file_download.py文件，修改其中的：
+url = HUGGINGFACE_CO_URL_TEMPLATE.format(
+    repo_id=repo_id, revision=quote(revision, safe=""), filename=quote(filename)
+)
+#为：
+url = f"https://hf-mirror.com/{repo_id}/resolve/{revision}/{filename}"
+#可将huggingface网站模型下载链接指向镜像站hf-mirror.com
+
 
 
